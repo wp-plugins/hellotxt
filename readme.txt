@@ -39,6 +39,9 @@ Yes, an accounts on HelloTXT.com is required for this plugin to function.
 
 == Changelog ==
 
+= 1.0.1 =
+* Added Feature Suggestion/Bug Report functionality
+
 = 1.0 =
 * Initial Release 1 December 2009
 
@@ -55,7 +58,6 @@ Yes, an accounts on HelloTXT.com is required for this plugin to function.
 
 = UI Features = 
 * add support for other languages
-* integrate bug support/feature suggestion 
 * add support for tags
 
 = Backend Features =

@@ -4,7 +4,7 @@ Plugin Name: HelloTXT
 Plugin URI: http://smheart.org/hellotxt/
 Description: The plugin sends a message to the HelloTXT social notification network when a post is published in WordPress.
 Author: Matthew Phillips
-Version: 1.0
+Version: 1.0.1
 Author URI: http://smheart.org
 
 
@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 http://www.gnu.org/licenses/gpl.txt
 
 Version
+	1.0.1 10 December 2009
         1.0 - 1 December 2009
 
 
@@ -105,10 +106,85 @@ function hellotxt_options() {
 			<input type="submit" name="Submit" value="Set Options" />
 		</p>
 	</form>
-	</fieldset>				
+	</fieldset>	
+	<div style="clear:both;"></div>			
+	<fieldset class="options"><legend>Feature Suggestion/Bug Report</legend> 
+	<?php if ($_SERVER['REQUEST_METHOD'] != 'POST'){
+      		$me = $_SERVER['PHP_SELF'].'?page=hellotxt/hellotxt.php';
+		?>
+		<form name="form1" method="post" action="<?php echo $me;?>">
+		<table border="0" cellspacing="0" cellpadding="2">
+		<tr>
+			<td>
+				Make a:
+			</td>
+			<td>
+				<select name="MessageType">
+				<option value="Feature Suggestion">Feature Suggestion</option>
+				<option value="Bug Report">Bug Report</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Name:
+			</td>
+			<td>
+				<input type="text" name="Name">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Your email:
+			</td>
+			<td>
+				<input type="text" name="Email" value="<?php echo(get_option('admin_email')) ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				Message:
+			</td>
+			<td>
+				<textarea name="MsgBody">
+				</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				<input type="submit" name="Submit" value="Send">
+			</td>
+		</tr>
+	</table>
+</form>
+<?php
+   } else {
+      error_reporting(0);
+	$recipient = 'support@smheart.org';
+	$subject = stripslashes($_POST['MessageType']).'- helloTXT Plugin';
+	$name = stripslashes($_POST['Name']);
+	$email = stripslashes($_POST['Email']);
+	if ($from == "") {
+		$from = get_option('admin_email');
+	}
+	$header = "From: ".$name." <".$from.">\r\n."."Reply-To: ".$from." \r\n"."X-Mailer: PHP/" . phpversion();
+	$msg = stripslashes($_POST['MsgBody']);
+      if (mail($recipient, $subject, $msg, $header))
+         echo nl2br("<h2>Message Sent:</h2>
+         <strong>To:</strong> helloTXT Plugin Suport
+         <strong>Subject:</strong> $subject
+         <strong>Message:</strong> $msg");
+      else
+         echo "<h2>Message failed to send</h2>";
+}
+?>
+	</fieldset>			
 	</div>
 	<?php
-	}
+}
 
 function hellotxt_notification($new_status, $old_status, $post) {
 	global $wpdb;
