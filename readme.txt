@@ -2,8 +2,8 @@
 Contributors: Matthew Phillips
 Donate link: http://smheart.org/donate
 Tags: post, notification, hellotxt, social network
-Requires at least: 2.5
-Tested up to: 2.8.6
+Requires at least: 2.6
+Tested up to: 2.9
 Stable tag: trunk
 
 The plugin sends a message to the HelloTXT social notification network when a post is published in WordPress.
